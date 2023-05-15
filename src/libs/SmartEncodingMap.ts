@@ -225,25 +225,25 @@ const SmartEncodingMap: {
   '\u0334': '~', // COMBINING TILDE OVERLAY
   '\u223c': '~', // TILDE OPERATOR
   '\uff5e': '~', // FULLWIDTH TILDE
-  '\u00a0': '  ', // NO-BREAK SPACE
-  '\u2000': '  ', // EN QUAD
-  '\u2002': '  ', // EN SPACE
-  '\u2003': '  ', // EM SPACE
-  '\u2004': '  ', // THREE-PER-EM SPACE
-  '\u2005': '  ', // FOUR-PER-EM SPACE
-  '\u2006': '  ', // SIX-PER-EM SPACE
-  '\u2007': '  ', // FIGURE SPACE
-  '\u2008': '  ', // PUNCTUATION SPACE
-  '\u2009': '  ', // THIN SPACE
-  '\u200a': '  ', // HAIR SPACE
-  '\u202f': '  ', // NARROW NO-BREAK SPACE
-  '\u205f': '  ', // MEDIUM MATHEMATICAL SPACE
-  '\u3000': '  ', // IDEOGRAHPIC SPACE
-  '\u008d': '  ', // REVERSE LINE FEED (standard LF looks like \n, this looks like a space)
-  '\u009f': '  ', // <control>
-  '\u0080': '  ', // C1 CONTROL CODES
-  '\u0090': '  ', // DEVICE CONTROL STRING
-  '\u009b': '  ', // CONTROL SEQUENCE INTRODUCER
+  '\u00a0': ' ', // NO-BREAK SPACE
+  '\u2000': ' ', // EN QUAD
+  '\u2002': ' ', // EN SPACE
+  '\u2003': ' ', // EM SPACE
+  '\u2004': ' ', // THREE-PER-EM SPACE
+  '\u2005': ' ', // FOUR-PER-EM SPACE
+  '\u2006': ' ', // SIX-PER-EM SPACE
+  '\u2007': ' ', // FIGURE SPACE
+  '\u2008': ' ', // PUNCTUATION SPACE
+  '\u2009': ' ', // THIN SPACE
+  '\u200a': ' ', // HAIR SPACE
+  '\u202f': ' ', // NARROW NO-BREAK SPACE
+  '\u205f': ' ', // MEDIUM MATHEMATICAL SPACE
+  '\u3000': ' ', // IDEOGRAHPIC SPACE
+  '\u008d': ' ', // REVERSE LINE FEED (standard LF looks like \n, this looks like a space)
+  '\u009f': ' ', // <control>
+  '\u0080': ' ', // C1 CONTROL CODES
+  '\u0090': ' ', // DEVICE CONTROL STRING
+  '\u009b': ' ', // CONTROL SEQUENCE INTRODUCER
   '\u0010': '', // ESCAPE, DATA LINK (not visible)
   '\u0009': '       ', // TAB (7 spaces based on print statement in Python interpreter)
   '\u0000': '', // NULL
