@@ -43,7 +43,7 @@ exports.SegmentedMessage = void 0;
 var grapheme_splitter_1 = __importDefault(require("grapheme-splitter"));
 var Segment_1 = __importDefault(require("./Segment"));
 var EncodedChar_1 = __importDefault(require("./EncodedChar"));
-var UnicodeToGSM_1 = __importDefault(require("./UnicodeToGSM"));
+var UnicodeToGSM_1 = require("./UnicodeToGSM");
 var SmartEncodingMap_1 = __importDefault(require("./SmartEncodingMap"));
 var validEncodingValues = ['GSM-7', 'UCS-2', 'auto'];
 /**
@@ -57,12 +57,14 @@ var SegmentedMessage = /** @class */ (function () {
      * @param {string} message Body of the message
      * @param {boolean} [encoding] Optional: encoding. It can be 'GSM-7', 'UCS-2', 'auto'. Default value: 'auto'
      * @param {boolean} smartEncoding Optional: whether or not Twilio's [Smart Encoding](https://www.twilio.com/docs/messaging/services#smart-encoding) is emulated. Default value: false
+     * @param {string} countryCode Optional: whether to follow Malaysian encoding rules. Default value: 'US'
      * @property {number} numberOfUnicodeScalars  Number of Unicode Scalars (i.e. unicode pairs) the message is made of
      *
      */
-    function SegmentedMessage(message, encoding, smartEncoding) {
+    function SegmentedMessage(message, encoding, smartEncoding, countryCode) {
         if (encoding === void 0) { encoding = 'auto'; }
         if (smartEncoding === void 0) { smartEncoding = false; }
+        if (countryCode === void 0) { countryCode = 'US'; }
         var splitter = new grapheme_splitter_1.default();
         if (!validEncodingValues.includes(encoding)) {
             throw new Error("Encoding ".concat(encoding, " not supported. Valid values for encoding are ").concat(validEncodingValues.join(', ')));
@@ -92,10 +94,10 @@ var SegmentedMessage = /** @class */ (function () {
             /**
              * @property {string} encodingName Calculated encoding name. It can be: "GSM-7" or "UCS-2"
              */
-            this.encodingName = this._hasAnyUCSCharacters(this.graphemes) ? 'UCS-2' : 'GSM-7';
+            this.encodingName = this._hasAnyUCSCharacters(this.graphemes, countryCode) ? 'UCS-2' : 'GSM-7';
         }
         else {
-            if (encoding === 'GSM-7' && this._hasAnyUCSCharacters(this.graphemes)) {
+            if (encoding === 'GSM-7' && this._hasAnyUCSCharacters(this.graphemes, countryCode)) {
                 throw new Error('The string provided is incompatible with GSM-7 encoding');
             }
             this.encodingName = this.encoding;
@@ -130,13 +132,20 @@ var SegmentedMessage = /** @class */ (function () {
      * @returns {boolean} True if there are non-GSM-7 characters
      * @private
      */
-    SegmentedMessage.prototype._hasAnyUCSCharacters = function (graphemes) {
+    SegmentedMessage.prototype._hasAnyUCSCharacters = function (graphemes, countryCode) {
         var e_1, _a;
         var result = false;
+        var uniCodeArr = {};
+        if (countryCode === 'MY') {
+            uniCodeArr = UnicodeToGSM_1.UnicodeToGsmMY;
+        }
+        else {
+            uniCodeArr = UnicodeToGSM_1.UnicodeToGsm;
+        }
         try {
             for (var graphemes_1 = __values(graphemes), graphemes_1_1 = graphemes_1.next(); !graphemes_1_1.done; graphemes_1_1 = graphemes_1.next()) {
                 var grapheme = graphemes_1_1.value;
-                if (grapheme.length >= 2 || (grapheme.length === 1 && !UnicodeToGSM_1.default[grapheme.charCodeAt(0)])) {
+                if (grapheme.length >= 2 || (grapheme.length === 1 && !uniCodeArr[grapheme.charCodeAt(0)])) {
                     result = true;
                     break;
                 }
