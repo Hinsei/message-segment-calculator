@@ -1,9 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var UnicodeToGSM_1 = __importDefault(require("./UnicodeToGSM"));
+var UnicodeToGSM_1 = require("./UnicodeToGSM");
 /**
  * Encoded Character Classes
  * Utility classes to represent a character in a given encoding.
@@ -12,9 +9,9 @@ var EncodedChar = /** @class */ (function () {
     function EncodedChar(char, encoding) {
         this.raw = char;
         this.encoding = encoding;
-        this.isGSM7 = Boolean(char && char.length === 1 && UnicodeToGSM_1.default[char.charCodeAt(0)]);
+        this.isGSM7 = Boolean(char && char.length === 1 && UnicodeToGSM_1.UnicodeToGsm[char.charCodeAt(0)]);
         if (this.isGSM7) {
-            this.codeUnits = UnicodeToGSM_1.default[char.charCodeAt(0)];
+            this.codeUnits = UnicodeToGSM_1.UnicodeToGsm[char.charCodeAt(0)];
         }
         else {
             this.codeUnits = [];
